@@ -18,8 +18,9 @@ def main():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen,"black") # fills screen with black
-        player.draw(screen)
-        pygame.display.flip()
+        player.draw(screen) # draws the player icon on the screen
+        player.update(dt)
+        pygame.display.flip() # updates the entire contents of your computer screen with whatever you have drawn on your display Surface
         dt = clock.tick(60) / 1000
 
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
