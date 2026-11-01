@@ -10,16 +10,21 @@ def main():
     dt = 0.0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    updatable = pygame.sprite.Group() # holds all objects that can be updated
+    drawable = pygame.sprite.Group() # holds all objects that can be drawn
+    Player.containers = (updatable, drawable) # adds all future instances of "Player" to both groups
     player = Player(x, y)
 
-    while True:
+    while True: # start of game loop
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen,"black") # fills screen with black
-        player.draw(screen) # draws the player icon on the screen
-        player.update(dt)
+        for single_drawable in drawable:
+            single_drawable.draw(screen)
+        #player.draw(screen) # draws the player icon on the screen
+        updatable.update(dt)
         pygame.display.flip() # updates the entire contents of your computer screen with whatever you have drawn on your display Surface
         dt = clock.tick(60) / 1000
 
